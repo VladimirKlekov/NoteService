@@ -7,35 +7,70 @@ import org.junit.Assert.*
 class NoteServiceTest {
 
     @Test
-    fun addComment() {
-//        val testAddComment = NoteService()
-//        testAddComment.addComment(1, Comment(1,"Тест", false))
-//
-//        val newTestAddComment = Comment(1,"Тест", false)
-//
-//        //val resultAddComment = testAddComment.addComment(newTestAddComment)
+      fun addComment() {
+        //создал заметку
+           val testNote = Note(1, "Test",mutableListOf())
+            val service = NoteService()
+        service.add(testNote)
+        //проверяю размер списка вначале
+            val countBefore =  service.getById(1)?.comments?.size ?: 0
+        service.addComment(1, Comment(1, "Тест", false))
+        //проверяю размер списка после
+            val countAfter =  service.getById(1)?.comments?.size ?: 0
 
-       //assertEquals(testAddComment,newTestAddComment)
-    }
+            assertNotEquals(countBefore, countAfter)
+        }
+
 
     @Test
     fun editComment() {
-//        val testEditComment = 1
+        //создал заметку
+        val testNote = Note(1, "Test",mutableListOf())
+        val service = NoteService()
+        service.add(testNote)
+        //создал комментарий
+        val testComment = Comment(1, "Тест", false)
+        service.addComment(1,testComment)
+        //проверяю функцию
+        val result =  service.getById(1)?.comments?.get(0)
 //
-//        val result = NoteService()
-//            result.editComment(testEditComment)
-//
-//        //assertEquals()
+//      Результат
+       assertEquals(testComment.id, result?.id)
 
     }
-
 
 
     @Test
     fun deleteComment() {
+        //создал заметку
+        val testNote = Note(1, "Test",mutableListOf())
+        val service = NoteService()
+        service.add(testNote)
+        //создал комментарий
+        val testComment = Comment(1, "Тест", false)
+        service.addComment(1,testComment)
+
+        //Проверяю функцию
+        val result = service.deleteComment(1, 0)
+
+        //сравниваю результаты
+        assertNotEquals(testComment.deleted, result?.id)
     }
 
     @Test
     fun restoreComment() {
+        //создал заметку
+        val testNote = Note(1, "Test",mutableListOf())
+        val service = NoteService()
+        service.add(testNote)
+        //создал комментарий
+        val testComment = Comment(1, "Тест", true)
+        service.addComment(1,testComment)
+
+        //Проверяю функцию
+        val result = service.restoreComment(1, 0)
+
+        //сравниваю результаты
+        assertNotEquals(testComment.deleted, result?.id)
     }
 }

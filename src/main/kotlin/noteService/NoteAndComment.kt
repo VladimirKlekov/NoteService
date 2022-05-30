@@ -25,7 +25,9 @@ open class NoteAndComment<T : Node> {
         return elements.find { it.id == id }
     }
 
+    fun delete(id: Int):T?{
+       return elements.removeAt(id)
+    }
 
-//     fun restore(elem: T): T
 
 }

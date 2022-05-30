@@ -9,8 +9,8 @@ class NoteService : NoteAndComment<Note>() {
         getById(noteId)?.comments?.add(comment)
     }
 
-    fun editComment(commentId: Int): Comment? {
-        var edit = getById(commentId)?.comments?.get(commentId)
+    fun editComment(noteId: Int, commentId: Int): Comment? {
+        var edit = getById(noteId)?.comments?.get(commentId)
         println("Введите текст")
         edit?.text = readln()
         return edit
@@ -18,14 +18,14 @@ class NoteService : NoteAndComment<Note>() {
     }
 
 
-    fun deleteComment(commentId: Int): Comment? {
-        var del = getById(commentId)?.comments?.get(commentId)
+    fun deleteComment(noteId: Int, commentId: Int): Comment? {
+        var del = getById(noteId)?.comments?.get(commentId)
         del?.deleted = true
         return del
 
     }
 
-    fun restoreComment(commentId: Int): Comment? {
+    fun restoreComment(noteId: Int, commentId: Int): Comment? {
         var rest = getById(commentId)?.comments?.get(commentId)
         rest?.deleted = false
         return rest
